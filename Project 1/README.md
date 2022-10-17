@@ -9,4 +9,4 @@
 5. Проверим сколько ридов в скачанных файлах `wc -l amp_res_1.fastq`, `wc -l amp_res_2.fastq`. Оба запроса возвращают число 1823504, на каждый рид уходит 4 строки, следовательно, всего 455876 ридов.
 
 ## Проверка необработанных данных
-1. Запустим программу fastqc с fastq файлами `fastqc -o . [path to file 1]/amp_res_1.fastq [path to file 2]/amp_res_2.fastq`.
+1. Запустим программу fastqc с fastq файлами `fastqc -o . [full path to file 1]/amp_res_1.fastq [full path to file 2]/amp_res_2.fastq`.
