@@ -5,4 +5,4 @@
 1. Создаем дирректорию для сырых данных **rowData** в **Project1** и переходим в нее.
 2. Скачиваем референсную последовательность ДНК родительского (неустойчивого к антибиотику) штама `wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz` и разархивируем скаченный файл `gunzip GCF_000005845.2_ASM584v2_genomic.fna.gz`.
 3. Скачиваем анотацию родительской последовательности `wget https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.gff.gz` и разархивируем скаченный файл `gunzip GCF_000005845.2_ASM584v2_genomic.gff.gz`.
-4. Скачиваем результаты секвенирования нового штама, устойчивого к антибиотику `wget https://doi.org/10.6084/m9.figshare.10006541.v3`.
+4. Скачиваем результаты секвенирования нового штама, устойчивого к антибиотику `wget https://figshare.com/ndownloader/files/23769689 -O amp_rez1.fastq.gz` и `wget https://figshare.com/ndownloader/files/23769692  -O amp_rez1.fastq.gz`, разархивируем файлы `gunzip amp_res_1.fastq.gz`, `gunzip amp_res_2.fastq.gz`.
