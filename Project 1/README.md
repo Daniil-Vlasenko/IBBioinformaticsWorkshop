@@ -22,4 +22,39 @@ Quality encoding detected as phred33
 Input Read Pairs: 455876 Both Surviving: 445689 (97,77%) Forward Only Surviving: 9758 (2,14%) Reverse Only Surviving: 284 (0,06%) Dropped: 145 (0,03%)
 TrimmomaticPE: Completed successfully
 ```
-2. Запускаем программу **fastqc** с новыми данными `fastqc -o . amp_res_baseout_1P amp_res_baseout_2P`. Число ридов сократилось до 445689, больше нет ошибок типа **Per base sequence quality**.
+2. Переходим в папку **processedData** и запускаем программу **fastqc** с новыми данными `fastqc -o . amp_res_baseout_1P amp_res_baseout_2P`. Число ридов сократилось до 445689, больше нет ошибок типа **Per base sequence quality**.
+
+## Выравнивание ридов на референс
+### Индексирование референсной последовательности
+1. Переходим в папку **rowData** и индексируем референсную последовательность с помощью программы **bwa** `bwa index GCF_000005845.2_ASM584v2_genomic.fna`.
+```
+[bwa_index] Pack FASTA... 0.05 sec
+[bwa_index] Construct BWT for the packed sequence...
+[bwa_index] 1.43 seconds elapse.
+[bwa_index] Update BWT... 0.04 sec
+[bwa_index] Pack forward-only FASTA... 0.03 sec
+[bwa_index] Construct SA from BWT and Occ... 0.30 sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa index GCF_000005845.2_ASM584v2_genomic.fna
+[main] Real time: 1.918 sec; CPU: 1.863 sec
+```
+### Выравнивание ридов
+1. Выполняем выравнивание с помощью bwa `bwa mem GCF_000005845.2_ASM584v2_genomic.fna ../processedData/amp_res_baseout_1P ../processedData/amp_res_baseout_2P > ../processedData/alignment.sam`.
+```
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 106290 sequences (10000002 bp)...
+[M::process] read 108208 sequences (10000042 bp)...
+[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (9, 51226, 0, 22)
+[M::mem_pestat] skip orientation FF as there are not enough pairs
+...
+[M::mem_pestat] skip orientation RR as there are not enough pairs
+[M::mem_process_seqs] Processed 38166 reads in 1.163 CPU sec, 1.046 real sec
+[main] Version: 0.7.17-r1188
+[main] CMD: bwa mem GCF_000005845.2_ASM584v2_genomic.fna ../processedData/amp_res_baseout_1P ../processedData/amp_res_baseout_2P
+[main] Real time: 24.261 sec; CPU: 25.459 sec
+```
+
+
+
+
+
