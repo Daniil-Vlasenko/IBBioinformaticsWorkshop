@@ -234,5 +234,3 @@ TrimmomaticPE: Completed successfully
 </details>
 
 
-
-
