@@ -40,20 +40,65 @@ TrimmomaticPE: Completed successfully
 ```
 ### Выравнивание ридов
 1. Выполняем выравнивание с помощью bwa `bwa mem GCF_000005845.2_ASM584v2_genomic.fna ../processedData/amp_res_baseout_1P ../processedData/amp_res_baseout_2P > ../processedData/alignment.sam`.
-```
-[M::bwa_idx_load_from_disk] read 0 ALT contigs
-[M::process] read 106290 sequences (10000002 bp)...
-[M::process] read 108208 sequences (10000042 bp)...
-[M::mem_pestat] # candidate unique pairs for (FF, FR, RF, RR): (9, 51226, 0, 22)
-[M::mem_pestat] skip orientation FF as there are not enough pairs
-...
-[M::mem_pestat] skip orientation RR as there are not enough pairs
-[M::mem_process_seqs] Processed 38166 reads in 1.163 CPU sec, 1.046 real sec
-[main] Version: 0.7.17-r1188
-[main] CMD: bwa mem GCF_000005845.2_ASM584v2_genomic.fna ../processedData/amp_res_baseout_1P ../processedData/amp_res_baseout_2P
-[main] Real time: 24.261 sec; CPU: 25.459 sec
-```
+<details>
+ <summary><b>Show instructions</b></summary>
 
+1. Install the preset:
+
+    ```sh
+    $ npm install --save-dev size-limit @size-limit/file
+    ```
+
+2. Add the `size-limit` section and the `size` script to your `package.json`:
+
+    ```diff
+    + "size-limit": [
+    +   {
+    +     "path": "dist/app-*.js"
+    +   }
+    + ],
+      "scripts": {
+        "build": "webpack ./webpack.config.js",
+    +   "size": "npm run build && size-limit",
+        "test": "jest && eslint ."
+      }
+    ```
+
+3. Here’s how you can get the size for your current project:
+
+    ```sh
+    $ npm run size
+
+      Package size: 30.08 kB with all dependencies, minified and gzipped
+    ```
+
+4. Now, let’s set the limit. Add 25% to the current total size and use that as
+   the limit in your `package.json`:
+
+    ```diff
+      "size-limit": [
+        {
+    +     "limit": "35 kB",
+          "path": "dist/app-*.js"
+        }
+      ],
+    ```
+
+5. Add the `size` script to your test suite:
+
+    ```diff
+      "scripts": {
+        "build": "webpack ./webpack.config.js",
+        "size": "npm run build && size-limit",
+    -   "test": "jest && eslint ."
+    +   "test": "jest && eslint . && npm run size"
+      }
+    ```
+
+6. If you don’t have a continuous integration service running, don’t forget
+   to add one — start with [Travis CI].
+
+</details>
 
 
 
