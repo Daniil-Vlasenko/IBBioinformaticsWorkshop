@@ -258,7 +258,7 @@ TrimmomaticPE: Completed successfully
 0 + 0 with mate mapped to a different chr
 0 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
-<details> 
+</details> 
 
  3. Индексируем и сортируем .bam файл `samtools sort alignment.bam -o alignment_sorted.bam`, `samtools index alignment_sorted.bam`.
 
