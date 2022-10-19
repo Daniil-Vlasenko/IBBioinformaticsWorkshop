@@ -262,3 +262,18 @@ TrimmomaticPE: Completed successfully
 
  3. Индексируем и сортируем .bam файл `samtools sort alignment.bam -o alignment_sorted.bam`, `samtools index alignment_sorted.bam`.
 
+## Поиск нуклеотидных различий между референсом и ридами
+1. Создаем промежуточный mpileup файл `samtools mpileup -f ../rowData/GCF_000005845.2_ASM584v2_genomic.fna alignment_sorted.bam >  my.mpileup`.
+
+<details>
+<summary>Output:</summary>
+ 
+```
+.bam >  my.mpileup
+[mpileup] 1 samples in 1 input files
+```
+</details> 
+
+2. Создаем .vcf файл, используя программу varscan `varscan mpileup2snp my.mpileup --min-var-freq 0.5 --variants --output-vcf 1 > varscan_results.vcf`.
+
+
