@@ -233,4 +233,32 @@ TrimmomaticPE: Completed successfully
 ```
 </details>
 
+### Сконвертируем .sam файл в .bam файл
+1. Для конвертации перейдем в пвпку **processedData** и используем программу samtools `samtools view -S -b alignment.sam > alignment.bam`.
+2. Проверим, сколько ридрв было выравнено `samtools flagstat alignment.bam`.
+
+<details>
+<summary>Output:</summary>
+ 
+```
+891635 + 0 in total (QC-passed reads + QC-failed reads)
+891378 + 0 primary
+0 + 0 secondary
+257 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+890569 + 0 mapped (99.88% : N/A)
+890312 + 0 primary mapped (99.88% : N/A)
+891378 + 0 paired in sequencing
+445689 + 0 read1
+445689 + 0 read2
+887530 + 0 properly paired (99.57% : N/A)
+889384 + 0 with itself and mate mapped
+928 + 0 singletons (0.10% : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+```
+<details> 
+
+ 3. Индексируем и сортируем .bam файл `samtools sort alignment.bam -o alignment_sorted.bam`, `samtools index alignment_sorted.bam`.
 
