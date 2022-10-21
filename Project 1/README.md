@@ -26,7 +26,7 @@ Quality encoding detected as phred33
 Input Read Pairs: 455876 Both Surviving: 445689 (97,77%) Forward Only Surviving: 9758 (2,14%) Reverse Only Surviving: 284 (0,06%) Dropped: 145 (0,03%)
 TrimmomaticPE: Completed successfully
 ```
- </details>
+</details>
 
 2. Переходим в папку **processedData** и запускаем программу **fastqc** с новыми данными `fastqc -o . amp_res_baseout_1P amp_res_baseout_2P`. Число ридов сократилось до 445689, больше нет ошибок типа **Per base sequence quality**.
 
@@ -276,4 +276,32 @@ TrimmomaticPE: Completed successfully
 
 2. Создаем .vcf файл, используя программу varscan `varscan mpileup2snp my.mpileup --min-var-freq 0.5 --variants --output-vcf 1 > varscan_results.vcf`.
 
+3. Загружаем необходимые файлы в **IGV** и замечаем, что мутации произошли в слудующих генах:
+```
+Dbxref: ASAP:ABE-0000309,ECOCYC:EG10341,GeneID:944799
+Name: ftsI
+
+Dbxref: ASAP:ABE-0001601,ECOCYC:EG11704,GeneID:945108
+Name: acrB
+
+Dbxref: ASAP:ABE-0047240,ECOCYC:G0-8881,GeneID:2847681
+Name: rybA
+
+Dbxref: ASAP:ABE-0006065,ECOCYC:G6999,GeneID:946341
+Name: mntP
+
+Dbxref: ASAP:ABE-0011108,ECOCYC:EG10269,GeneID:947272
+Name: envZ
+
+Dbxref: ASAP:ABE-0013626,ECOCYC:G7841,GeneID:948674
+Name: rsgA
+```
+
+# Интерпритация результатов.
+1. ftsI белок кодирующий ген, мутация типа missense. Кидирует белок, учавствующий в делении клетки.
+2. acrB белок кодирующий ген, мутация типа missense. Белок учавствуйет в трансмембранном переносе.
+3. rybA не кодирует белок.
+4. mntP белок кодирующий ген, мутация типа missense. Белок учавствует в трансмембранном переносе ионов марганца.
+5. envZ белок кодирующий ген, мутация типа missense. Белок учавствует в связывании различных молекул и активации "всяких таз".
+6. rsgA белок кодирующий ген, мутация типа missense. Белок учавствует в биогенезе рибосом.
 
