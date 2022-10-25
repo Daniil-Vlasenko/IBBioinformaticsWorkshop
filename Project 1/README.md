@@ -9,7 +9,7 @@
 5. Проверим сколько ридов в скачанных файлах `wc -l amp_res_1.fastq`, `wc -l amp_res_2.fastq`. Оба запроса возвращают число 1823504, на каждый рид уходит 4 строки, следовательно, всего 455876 ридов.
 
 ## Проверка необработанных данных
-1. Запускаем программу **fastqc** с fastq файлами `fastqc -o . amp_res_1.fastq amp_res_2.fastq`. Можно заметить ошибку типа **Per base sequence quality** для обоих файлов, связанную с ухудшением качества хвостов последовательностей, и ошибку типа **Per tile sequence quality** для первого файла. Кажется, первую ошибку можно решить укоротив результаты секвенирования справа, вторую — удалением проблемных последовательностей из данных.
+1. Запускаем программу **fastqc** с fastq файлами `fastqc -o . amp_res_1.fastq amp_res_2.fastq`. Можно заметить ошибку типа **Per base sequence quality** для обоих файлов, связанную с ухудшением качества хвостов последовательностей, и ошибку типа **Per tile sequence quality** для первого файла.
 
 ## Исправление данных секвенирования
 1. Используем программу **trimmomatic** для исправления данных секвенирования `trimmomatic PE amp_res_1.fastq amp_res_2.fastq -baseout ../processedData/amp_res_baseout SLIDINGWINDOW:10:20 LEADING:20 TRAILING:20 MINLEN:20`.
@@ -31,7 +31,6 @@ TrimmomaticPE: Completed successfully
 2. Переходим в директорию **processedData** и запускаем программу **fastqc** с новыми данными `fastqc -o . amp_res_baseout_1P amp_res_baseout_2P`. Число ридов сократилось до 445689, больше нет ошибок типа **Per base sequence quality**.
 
 ## Выравнивание ридов на референс
-### Индексирование референсной последовательности
 1. Переходим в директорию **rowData** и индексируем референсную последовательность с помощью программы **bwa** `bwa index GCF_000005845.2_ASM584v2_genomic.fna`.
 
 <details>
@@ -50,8 +49,7 @@ TrimmomaticPE: Completed successfully
 ```
  </details>
  
-### Выравнивание ридов
-1. Выполняем выравнивание с помощью bwa `bwa mem GCF_000005845.2_ASM584v2_genomic.fna ../processedData/amp_res_baseout_1P ../processedData/amp_res_baseout_2P > ../processedData/alignment.sam`.
+2. Выполняем выравнивание ридов с помощью bwa `bwa mem GCF_000005845.2_ASM584v2_genomic.fna ../processedData/amp_res_baseout_1P ../processedData/amp_res_baseout_2P > ../processedData/alignment.sam`.
 
 <details>
 <summary>Output:</summary>
@@ -233,9 +231,8 @@ TrimmomaticPE: Completed successfully
 ```
 </details>
 
-### Сконвертируем .sam файл в .bam файл
-1. Для конвертации перейдем в директорию **processedData** и используем программу samtools `samtools view -S -b alignment.sam > alignment.bam`.
-2. Проверим, сколько ридрв было выравнено `samtools flagstat alignment.bam`.
+3. Конвертируем .sam файл в .bam файл. Для этого перейдем в директорию **processedData** и используем программу samtools `samtools view -S -b alignment.sam > alignment.bam`.
+4. Проверим, сколько ридрв было выравнено `samtools flagstat alignment.bam`.
 
 <details>
 <summary>Output:</summary>
@@ -260,7 +257,7 @@ TrimmomaticPE: Completed successfully
 ```
 </details> 
 
- 3. Индексируем и сортируем .bam файл `samtools sort alignment.bam -o alignment_sorted.bam`, `samtools index alignment_sorted.bam`.
+5. Индексируем и сортируем .bam файл `samtools sort alignment.bam -o alignment_sorted.bam`, `samtools index alignment_sorted.bam`.
 
 ## Поиск нуклеотидных различий между референсом и ридами
 1. Создаем промежуточный mpileup файл `samtools mpileup -f ../rowData/GCF_000005845.2_ASM584v2_genomic.fna alignment_sorted.bam >  my.mpileup`.
@@ -297,12 +294,12 @@ Dbxref: ASAP:ABE-0013626,ECOCYC:G7841,GeneID:948674
 Name: rsgA
 ```
 
-# Интерпретация результатов.
+## Интерпретация результатов.
 Ампиницилин — антибиотик, механизмы действия которого заключаются в нарушении синтеза клеточной стенки путем присоединения к пенициллин-связывающим белкам (PBPs), ингибировании синтеза пептидогликана клеточной стенки и инактивации ингибиторов автолитических ферментов. Он ингибирует третью и последнюю стадию синтеза клеточной стенки бактерий при бинарном делении, что в конечном итоге приводит к лизису клеток; поэтому ампициллин обычно обладает бактериолитическим действием (бактерии умертвляются, и бактериальные клеточные стенки разрушаются). 
 
-1. ftsI — белок кодирующий ген, мутация типа missense. Кодирует белок	NP_414626.1, участвующий перекрестном связывании клеточной стенки во время деления клетки.
+1. ftsI — белок кодирующий ген, мутация типа missense. Кодирует белок	NP_414626.1, участвующий в перекрестном связывании клеточной стенки во время деления клетки.
 2. acrB — белок кодирующий ген, мутация типа missense. Кодирует белок NP_414995.1, являющийся субъединицой комплекса, занимающегося откачкой лекарств из клетки.
-3. rybA кодирует мРНК, регулирующую синтез араматических кислот. (https://pubmed.ncbi.nlm.nih.gov/22336764/)
+3. rybA кодирует мРНК, регулирующую синтез араматических кислот (https://pubmed.ncbi.nlm.nih.gov/22336764/).
 4. mntP — белок кодирующий ген, мутация типа missense. Кодирует белок NP_416335.4, участвующий в выкачивании марганца.
 5. envZ — белок кодирующий ген, мутация типа missense. Кодирует белок NP_417863.1, участвующий в осморегуляции.
 6. rsgA — белок кодирующий ген, мутация типа missense. Кодирует белок NP_418585.4, участвующий в созревании рибосом.
