@@ -3,12 +3,9 @@
 
 ## Подготовка данных
 1. Создаем директорию для сырых данных **rowData** в **Project2** и переходим в нее.
-2. Скачиваем данные секвенирования, полученные от болльного `wget http://ftp.sra.ebi.ac.uk/vol1/fastq/SRR170/001/SRR1705851/SRR1705851.fastq.gz`. и разархивируем файл `gunzip SRR1705851.fastq.gz`.
+2. Скачиваем данные секвенирования, полученные от болльного `wget http://ftp.sra.ebi.ac.uk/vol1/fastq/SRR170/001/SRR1705851/SRR1705851.fastq.gz`, `wgetftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR170/008/SRR1705858/SRR1705858.fastq.gz`, `wgetftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR170/009/SRR1705859/SRR1705859.fastq.gz`, `wgetftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR170/000/SRR1705860/SRR1705860.fastq.gz` и разархивируем файл `gunzip SRR1705851.fastq.gz`, `gunzip SRR1705858.fastq.gz`, `gunzip SRR1705859.fastq.gz`, `gunzip SRR1705860.fastq.gz`.
 3. Скачиваем референсную последовательность гена вируса с https://www.ncbi.nlm.nih.gov/nuccore/KF848938.1?report=fasta.
-4. Проверим сколько ридов в скачанном файлах `wc -l SRR1705851.fastq`. Запрос возвращает число 1433060, на каждый рид уходит 4 строки, следовательно, всего 358265 ридов.
-
-## Проверка необработанных данных
-1. Запускаем программу **fastqc** с fastq файлами `fastqc -o . SRR1705851.fastq`. Можно заметить ошибку типа **Per base sequence content** и ошибку типа **Sequence Duplication Levels**, оставим данные такими.
+4. Проверим сколько ридов в скачанных файлах `wc -l SRR1705851.fastq`, `wc -l SRR1705858.fastq`, `wc -l SRR1705859.fastq`, `wc -l SRR1705860.fastq`. Запросы возвращают числа 1433060, 1026344, 933308, 999856 на каждый рид уходит 4 строки, следовательно, всего 358265, 256586, 233327, 249964 ридов.
 
 ## Выравнивание ридов на референс
 1. Индексируем референсную последовательность с помощью программы **bwa** `bwa index sequence.fasta`.
@@ -29,34 +26,11 @@
 ```
  </details>
  
-2. Выполняем выравнивание ридов с помощью bwa `bwa mem sequence.fasta SRR1705851.fastq > ../processedData/alignment.sam`.
+2. Выполняем выравнивание ридов с помощью bwa `bwa mem sequence.fasta SRR1705851.fastq > ../processedData/alignment_SRR1705851.sam`, `bwa mem sequence.fasta SRR1705858.fastq > ../processedData/alignment_SRR1705858.sam`, `bwa mem sequence.fasta SRR1705859.fastq > ../processedData/alignment_SRR1705859.sam`, `bwa mem sequence.fasta SRR1705860.fastq > ../processedData/alignment_SRR1705860.sam`.
 
-<details>
-<summary>Output:</summary>
 
- ``` 
-1705851.fastq > ../processedData/alignment.sam
-[M::bwa_idx_load_from_disk] read 0 ALT contigs
-[M::process] read 68388 sequences (10000129 bp)...
-[M::process] read 67628 sequences (10000233 bp)...
-[M::mem_process_seqs] Processed 68388 reads in 1.503 CPU sec, 1.465 real sec
-[M::process] read 67698 sequences (10000046 bp)...
-[M::mem_process_seqs] Processed 67628 reads in 1.237 CPU sec, 1.172 real sec
-[M::process] read 67652 sequences (10000169 bp)...
-[M::mem_process_seqs] Processed 67698 reads in 1.572 CPU sec, 1.508 real sec
-[M::process] read 68072 sequences (10000295 bp)...
-[M::mem_process_seqs] Processed 67652 reads in 1.516 CPU sec, 1.456 real sec
-[M::process] read 18827 sequences (2716992 bp)...
-[M::mem_process_seqs] Processed 68072 reads in 1.302 CPU sec, 1.260 real sec
-[M::mem_process_seqs] Processed 18827 reads in 0.570 CPU sec, 0.536 real sec
-[main] Version: 0.7.17-r1188
-[main] CMD: bwa mem sequence.fasta SRR1705851.fastq
-[main] Real time: 7.534 sec; CPU: 7.768 sec
-```
-</details>
-
-3. Конвертируем .sam файл в .bam файл. Для этого перейдем в директорию **processedData** и используем программу **samtools** `samtools view -S -b alignment.sam > alignment.bam`.
-4. Проверим, сколько ридрв было выравнено `samtools flagstat alignment.bam`.
+3. Конвертируем .sam файл в .bam файл. Для этого перейдем в директорию **processedData** и используем программу **samtools** `samtools view -S -b alignment_SRR1705851.sam > alignment_SRR1705851.bam`, `samtools view -S -b alignment_SRR1705858.sam > alignment_SRR1705858.bam`, `samtools view -S -b alignment_SRR1705859.sam > alignment_SRR1705859.bam`, `samtools view -S -b alignment_SRR1705860.sam > alignment_SRR1705860.bam`.
+4. Проверим, сколько ридрв было выравнено `samtools flagstat alignment_SRR1705851.bam`, `samtools flagstat alignment_SRR1705858.bam`, `samtools flagstat alignment_SRR1705859.bam`, `samtools flagstat alignment_SRR1705860.bam`.
 
 <details>
 <summary>Output:</summary>
@@ -79,12 +53,67 @@
 0 + 0 with mate mapped to a different chr
 0 + 0 with mate mapped to a different chr (mapQ>=5)
 ```
+```
+256744 + 0 in total (QC-passed reads + QC-failed reads)
+256586 + 0 primary
+0 + 0 secondary
+158 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+256658 + 0 mapped (99.97% : N/A)
+256500 + 0 primary mapped (99.97% : N/A)
+0 + 0 paired in sequencing
+0 + 0 read1
+0 + 0 read2
+0 + 0 properly paired (N/A : N/A)
+0 + 0 with itself and mate mapped
+0 + 0 singletons (N/A : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+```
+```
+233451 + 0 in total (QC-passed reads + QC-failed reads)
+233327 + 0 primary
+0 + 0 secondary
+124 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+233375 + 0 mapped (99.97% : N/A)
+233251 + 0 primary mapped (99.97% : N/A)
+0 + 0 paired in sequencing
+0 + 0 read1
+0 + 0 read2
+0 + 0 properly paired (N/A : N/A)
+0 + 0 with itself and mate mapped
+0 + 0 singletons (N/A : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+```
+```
+250184 + 0 in total (QC-passed reads + QC-failed reads)
+249964 + 0 primary
+0 + 0 secondary
+220 + 0 supplementary
+0 + 0 duplicates
+0 + 0 primary duplicates
+250108 + 0 mapped (99.97% : N/A)
+249888 + 0 primary mapped (99.97% : N/A)
+0 + 0 paired in sequencing
+0 + 0 read1
+0 + 0 read2
+0 + 0 properly paired (N/A : N/A)
+0 + 0 with itself and mate mapped
+0 + 0 singletons (N/A : N/A)
+0 + 0 with mate mapped to a different chr
+0 + 0 with mate mapped to a different chr (mapQ>=5)
+
+```
 </details> 
 
 5. Индексируем и сортируем .bam файл `samtools sort alignment.bam -o alignment_sorted.bam`, `samtools index alignment_sorted.bam`.
 
 ## Поиск нуклеотидных различий между референсом и ридами
-1. Создаем промежуточный mpileup файл `samtools mpileup -f ../rowData/sequence.fasta alignment_sorted.bam >  my.mpileup`.
+1. Создаем промежуточный mpileup файл `samtools mpileup -d 361349 -f ../rowData/sequence.fasta alignment_sorted.bam > my.mpileup`.
 
 <details>
 <summary>Output:</summary>
@@ -110,8 +139,8 @@ Min avg qual:	15
 P-value thresh:	0.01
 Reading input from my.mpileup
 1665 bases in pileup file
-12 variant positions (10 SNP, 2 indel)
-1 were failed by the strand-filter
-9 variant positions reported (9 SNP, 0 indel)
+23 variant positions (21 SNP, 2 indel)
+0 were failed by the strand-filter
+21 variant positions reported (21 SNP, 0 indel)
 ```
 </details> 
