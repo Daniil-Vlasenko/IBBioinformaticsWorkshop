@@ -110,21 +110,12 @@
 ```
 </details> 
 
-5. Индексируем и сортируем .bam файл `samtools sort alignment.bam -o alignment_sorted.bam`, `samtools index alignment_sorted.bam`.
+5. Индексируем и сортируем .bam файлы `samtools sort alignment_SRR1705851.bam -o alignment_SRR1705851_sorted.bam`, `samtools sort alignment_SRR1705858.bam -o alignment_SRR1705858_sorted.bam`, `samtools sort alignment_SRR1705859.bam -o alignment_SRR1705859_sorted.bam`, `samtools sort alignment_SRR1705860.bam -o alignment_SRR1705860_sorted.bam` и `samtools index alignment_SRR1705851_sorted.bam`, `samtools index alignment_SRR1705858_sorted.bam`, `samtools index alignment_SRR1705859_sorted.bam`, `samtools index alignment_SRR1705860_sorted.bam`.
 
 ## Поиск нуклеотидных различий между референсом и ридами
-1. Создаем промежуточный mpileup файл `samtools mpileup -d 361349 -f ../rowData/sequence.fasta alignment_sorted.bam > my.mpileup`.
+1. Создаем промежуточные mpileup файлы `samtools mpileup -d 400000 -f ../rowData/sequence.fasta alignment_SRR1705851_sorted.bam > SRR1705851.mpileup`, `samtools mpileup -d 400000 -f ../rowData/sequence.fasta alignment_SRR1705858_sorted.bam > SRR1705858.mpileup`, `samtools mpileup -d 400000 -f ../rowData/sequence.fasta alignment_SRR1705859_sorted.bam > SRR1705859.mpileup`, `samtools mpileup -d 400000 -f ../rowData/sequence.fasta alignment_SRR1705860_sorted.bam > SRR1705860.mpileup`.
 
-<details>
-<summary>Output:</summary>
- 
-```
-.bam >  my.mpileup
-[mpileup] 1 samples in 1 input files
-```
-</details> 
-
-2. Создаем .vcf файл, используя программу **varscan** `varscan mpileup2snp my.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > varscan_results.vcf`.
+2. Создаем .vcf файлы, используя программу **varscan** `varscan mpileup2snp SRR1705851.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > SRR1705851_varscan_results.vcf`, `varscan mpileup2snp SRR1705858.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > SRR1705858_varscan_results.vcf`, `varscan mpileup2snp SRR1705859.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > SRR1705859_varscan_results.vcf`, `varscan mpileup2snp SRR1705860.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > SRR1705860_varscan_results.vcf`.
 
 <details>
 <summary>Output:</summary>
@@ -137,10 +128,52 @@ Min reads2:	2
 Min var freq:	0.001
 Min avg qual:	15
 P-value thresh:	0.01
-Reading input from my.mpileup
+Reading input from SRR1705851.mpileup
 1665 bases in pileup file
 23 variant positions (21 SNP, 2 indel)
 0 were failed by the strand-filter
 21 variant positions reported (21 SNP, 0 indel)
+```
+```
+Only SNPs will be reported
+Warning: No p-value threshold provided, so p-values will not be calculated
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.01
+Reading input from SRR1705858.mpileup
+1665 bases in pileup file
+58 variant positions (58 SNP, 0 indel)
+1 were failed by the strand-filter
+57 variant positions reported (57 SNP, 0 indel)
+```
+```
+Only SNPs will be reported
+Warning: No p-value threshold provided, so p-values will not be calculated
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.01
+Reading input from SRR1705859.mpileup
+1665 bases in pileup file
+54 variant positions (54 SNP, 0 indel)
+2 were failed by the strand-filter
+52 variant positions reported (52 SNP, 0 indel)
+```
+```
+Only SNPs will be reported
+Warning: No p-value threshold provided, so p-values will not be calculated
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.01
+Reading input from SRR1705860.mpileup
+1665 bases in pileup file
+61 variant positions (61 SNP, 0 indel)
+0 were failed by the strand-filter
+61 variant positions reported (61 SNP, 0 indel)
 ```
 </details> 
