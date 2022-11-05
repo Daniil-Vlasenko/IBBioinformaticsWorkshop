@@ -177,3 +177,5 @@ Reading input from SRR1705860.mpileup
 61 variant positions reported (61 SNP, 0 indel)
 ```
 </details> 
+
+3. Извлекаем необходимую для анализа информацию из контрольных данных `awk 'BEGIN{FS="\t|:"; OFS=" "} {if(NR>24) {gsub("%","",$29); print $2,$4,$5,$29}}' SRR1705858_varscan_results.vcf > SRR1705858_varscan_results_awk.txt`, `awk 'BEGIN{FS="\t|:"; OFS=" "} {if(NR>24) {gsub("%","",$29); print $2,$4,$5,$29}}' SRR1705859_varscan_results.vcf > SRR1705859_varscan_results_awk.txt`, `awk 'BEGIN{FS="\t|:"; OFS=" "} {if(NR>24) {gsub("%","",$29); print $2,$4,$5,$29}}' SRR1705860_varscan_results.vcf > SRR1705860_varscan_results_awk.txt`.
