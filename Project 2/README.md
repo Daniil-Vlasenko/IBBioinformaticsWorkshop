@@ -27,8 +27,6 @@
  </details>
  
 2. Выполняем выравнивание ридов с помощью bwa `bwa mem sequence.fasta SRR1705851.fastq > ../processedData/alignment_SRR1705851.sam`, `bwa mem sequence.fasta SRR1705858.fastq > ../processedData/alignment_SRR1705858.sam`, `bwa mem sequence.fasta SRR1705859.fastq > ../processedData/alignment_SRR1705859.sam`, `bwa mem sequence.fasta SRR1705860.fastq > ../processedData/alignment_SRR1705860.sam`.
-
-
 3. Конвертируем .sam файл в .bam файл. Для этого перейдем в директорию **processedData** и используем программу **samtools** `samtools view -S -b alignment_SRR1705851.sam > alignment_SRR1705851.bam`, `samtools view -S -b alignment_SRR1705858.sam > alignment_SRR1705858.bam`, `samtools view -S -b alignment_SRR1705859.sam > alignment_SRR1705859.bam`, `samtools view -S -b alignment_SRR1705860.sam > alignment_SRR1705860.bam`.
 4. Проверим, сколько ридрв было выравнено `samtools flagstat alignment_SRR1705851.bam`, `samtools flagstat alignment_SRR1705858.bam`, `samtools flagstat alignment_SRR1705859.bam`, `samtools flagstat alignment_SRR1705860.bam`.
 
@@ -114,7 +112,6 @@
 
 ## Поиск нуклеотидных различий между референсом и ридами
 1. Создаем промежуточные mpileup файлы `samtools mpileup -d 400000 -f ../rowData/sequence.fasta alignment_SRR1705851_sorted.bam > SRR1705851.mpileup`, `samtools mpileup -d 400000 -f ../rowData/sequence.fasta alignment_SRR1705858_sorted.bam > SRR1705858.mpileup`, `samtools mpileup -d 400000 -f ../rowData/sequence.fasta alignment_SRR1705859_sorted.bam > SRR1705859.mpileup`, `samtools mpileup -d 400000 -f ../rowData/sequence.fasta alignment_SRR1705860_sorted.bam > SRR1705860.mpileup`.
-
 2. Создаем .vcf файлы, используя программу **varscan** `varscan mpileup2snp SRR1705851.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > SRR1705851_varscan_results.vcf`, `varscan mpileup2snp SRR1705858.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > SRR1705858_varscan_results.vcf`, `varscan mpileup2snp SRR1705859.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > SRR1705859_varscan_results.vcf`, `varscan mpileup2snp SRR1705860.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > SRR1705860_varscan_results.vcf`.
 
 <details>
@@ -180,7 +177,7 @@ Reading input from SRR1705860.mpileup
 
 3. Извлекаем необходимую для анализа информацию из контрольных данных `awk 'BEGIN{FS="\t|:"; OFS=" "} {if(NR>24) {gsub("%","",$29); print $2,$4,$5,$29}}' SRR1705858_varscan_results.vcf > SRR1705858_varscan_results_awk.txt`, `awk 'BEGIN{FS="\t|:"; OFS=" "} {if(NR>24) {gsub("%","",$29); print $2,$4,$5,$29}}' SRR1705859_varscan_results.vcf > SRR1705859_varscan_results_awk.txt`, `awk 'BEGIN{FS="\t|:"; OFS=" "} {if(NR>24) {gsub("%","",$29); print $2,$4,$5,$29}}' SRR1705860_varscan_results.vcf > SRR1705860_varscan_results_awk.txt`.
 
-В итоге имеем SNPs вируса больного, среди которых будм искать настоящие мутации, и SNPs, полученные через секвенирование референсного вируса, которые являются шумами. Будем обращать внимание на SNPs больного, если частота соответствующего SNP отклоняется от средней частоты шума больше чем на 3 стандратных отклонения шума (Правило трех сигм). Ниже представлены SNPs больного:
+В итоге имеем SNPs вируса больного, среди которых будем искать настоящие мутации, и SNPs, полученные через секвенирование референсного вируса, которые являются шумами. Будем обращать внимание на SNPs больного, если частота соответствующего SNP отклоняется от средней частоты шума больше чем на 3 стандартных отклонения шума (Правило трех сигм). Ниже представлены SNPs больного:
 ```
 72 A G 99.96
 117 C T 99.82
@@ -204,7 +201,7 @@ Reading input from SRR1705860.mpileup
 1280 T C 0.18
 1458 T C 0.84
 ```
-Средние частот шумов: `0.2564912`, `0.2369231`, `0.2503279`. Стандратные отклонения частот шумов: `0.07172595`, `0.05237641`, `0.07803775`. Соответственно среднее средних частот шумов: `0.2479141`. Среднее стандратных отклонений частот шумов: `0.06738004`. Последние два числа будем использовать в качестве среднего и стандартного отклонения шума.
+Средние частот шумов: `0.2564912`, `0.2369231`, `0.2503279`. Стандартные отклонения частот шумов: `0.07172595`, `0.05237641`, `0.07803775`. Соответственно среднее средних частот шумов: `0.2479141`. Среднее стандартных отклонений частот шумов: `0.06738004`. Последние два числа будем использовать в качестве среднего и стандартного отклонения шума.
 
 Остаются слудующие SNPs:
 ```
