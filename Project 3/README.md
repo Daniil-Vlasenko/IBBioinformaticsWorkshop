@@ -2,6 +2,10 @@
 Создаем рабочую директорию **Project3**.
 
 ## Подготовка данных
-1. Создаем директорию для сырых данных **rowData** в **Project1** и переходим в нее.
+1. Создаем директорию для сырых данных **rowData** в **Project3**.
 2. Скачиваем прямые и обратные риды  длины 470 bp, 2 kb and 6 kb `wget https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292678sub_S1_L001_R1_001.fastq.gz https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292678sub_S1_L001_R2_001.fastq.gz https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292862_S2_L001_R1_001.fastq.gz https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292862_S2_L001_R2_001.fastq.gz https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292770_S1_L001_R1_001.fastq.gz https://d28rh4a8wq0iu5.cloudfront.net/bioinfo/SRR292770_S1_L001_R2_001.fastq.gz` и разархивирываем их `gunzip RR292678sub_S1_L001_R1_001.fastq.gz SRR292770_S1_L001_R2_001.fastq.gz SRR292678sub_S1_L001_R2_001.fastq.gz SRR292862_S2_L001_R1_001.fastq.gz SRR292770_S1_L001_R1_001.fastq.gz SRR292862_S2_L001_R2_001.fastq.gz`.
-3. Проверим сколько ридов в файлах. Запускаем программу **fastqc** с fastq файлами `fastqc -o . RR292678sub_S1_L001_R1_001.fastq.gz SRR292770_S1_L001_R2_001.fastq.gz SRR292678sub_S1_L001_R2_001.fastq.gz SRR292862_S2_L001_R1_001.fastq.gz SRR292770_S1_L001_R1_001.fastq.gz SRR292862_S2_L001_R2_001.fastq.gz`.
+3. Проверим сколько ридов в файлах. Запускаем программу **fastqc** с fastq файлами `fastqc -o . SRR292678sub_S1_L001_R1_001.fastq SRR292678sub_S1_L001_R2_001.fastq SRR292770_S1_L001_R2_001.fastq SRR292770_S1_L001_R1_001.fastq SRR292862_S2_L001_R1_001.fastq SRR292862_S2_L001_R2_001.fastq`. В файлах 5499346, 5499346, 5102041, 5102041, 5102041 и 5102041 ридов соответственно.
+
+## Сборка генома
+1. Создаем директорию для сырых данных **processedData** в **Project3**.
+2. Запустим **spades** на коротких ридах, а затем на всех ридах и сравним резульатты с помощью **quast** `spades --pe1-1 SRR292678sub_S1_L001_R1_001.fastq --pe1-2 SRR292678sub_S1_L001_R2_001.fastq -o ../processedData/spadesOutput1`, `spades --pe1-1 SRR292678sub_S1_L001_R1_001.fastq --pe1-2 SRR292678sub_S1_L001_R2_001.fastq --mp1-1 SRR292770_S1_L001_R1_001.fastq --mp1-2 SRR292770_S1_L001_R2_001.fastq --mp2-1 SRR292862_S2_L001_R1_001.fastq --mp2-2 SRR292862_S2_L001_R2_001.fastq -o ../processedData/spadesOutput2`
