@@ -7,3 +7,12 @@
 3. Скачиваем фунциональную анотацию генома, выполненную с помощью **Augustus** https://drive.google.com/file/d/1wBxf6cDgu22NbjAOgTe-8b3Zx60hNKY0/view?usp=drive_web.
 4. Вытаскиваем анотации генома последовательности белков в формате фаста с помощью https://github.com/nextgenusfs/augustus/blob/master/scripts/getAnnoFasta.pl `perl getAnnoFasta.pl processedData/augustus.whole.gff`.
 5. Посчитаем, сколько белков мы получили `grep -o '>' augustus.whole.fna | wc -l`. Итог — 16435.
+
+## Физическая локализация
+1. Скачиваем результаты масс-спектрометрии хроматина тихоходки https://disk.yandex.ru/d/xJqQMGX77Xueqg.
+2. Создаем базу данных пептидов с помощью **blast** `makeblastdb -in augustus.whole.fna -dbtype prot  -out blast_database`.
+3. Выравниванием данный масс-спектра на базу данных `blastp -db blast_database -query ../rowData/peptides.fa -outfmt 6  -out blast_output`.
+
+## Предположение локализации белков
+
+1. Используем **WoLF PSORT** для локализации белков, полученных на прошлом шаге — [WoLFPSORT output.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10208056/WoLFPSORT.output.pdf).
