@@ -15,4 +15,4 @@
 
 ## Предположение локализации белков
 
-1. Используем **WoLF PSORT** для локализации белков, полученных на прошлом шаге — [WoLFPSORT output.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10208056/WoLFPSORT.output.pdf).
+1. Используем **WoLF PSORT** для локализации белков, полученных на прошлом шаге — [WoLF PSORT Prediction.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10236580/WoLF.PSORT.Prediction.pdf)
