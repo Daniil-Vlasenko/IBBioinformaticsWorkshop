@@ -58,6 +58,15 @@ for l in allProt:
 | g16368.t1 | 1e-05 | 39.29% | 35% | A4II09.1 |
 
 ## HHMMER поиск
-1. Выполняем HHMMER поиск по всем белкам, которые были найдены на предыдущем шаге - [score results _ HMMER.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10238527/score.results._.HMMER.pdf).
+1. Выполняем HHMMER поиск по всем белкам, которые были найдены на предыдущем шаге - [score results _ HMMER.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10238527/score.results._.HMMER.pdf). В следующей таблице представлены белки, которые нашел HAMMER.
 
+| Accession Number | Annotation | Conditional E-value | Independent E-value |
+| :---: | :---: | :---: | :---: |
+| g2203.t1 | Glycosyl hydrolases family 31 | 2.4e-45 | 4.8e-41 |
+| g7861.t1 | SNF2-related domain | 1.8e-32 | 1.2e-28 |
+| g8100.t1 | Inositol monophosphatase family | 2.0e-41 | 1.9e-37 |
+| g8312.t1 | Region in Clathrin and VPS | 2.7e-27 | 5.4e-23 |
+| g11513.t1 | Transport protein Trs120 or TRAPPC9, TRAPP II complex subunit | 4.9e-14 | 9.6e-10 |
+| g11960.t1 | Zinc finger, C3HC4 type (RING finger) | 2.1e-09 | 4.2e-05 |
+| g15484.t1 | Vps51/Vps67 | 3.2e-27 | 1.3e-23 |
 
