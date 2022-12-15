@@ -36,7 +36,24 @@ for l in allProt:
 ```
 
 ## Предположение локализации белков
-
 1. Используем **WoLF PSORT** для локализации белков, полученных на прошлом шаге — [WoLF PSORT Prediction.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10236580/WoLF.PSORT.Prediction.pdf).
 2. Выбираем все белки, которые потенциально могут быть ядерными — [proteins.txt](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10237163/proteins.txt).
+
+## Blast поиск
+1. Выполняем Blast поиск по всем белкам, которые были найдены на прошлом шаге.
+
+| Accession Number | E-value | % Ident | % Query coverage | Annotation |
+| :---: | :---: | :---: | :---: | :---: |
+| g2203.t1 | 2e-126 | 35.93% | 75% | Q69ZQ1.2 |
+| g3428.t1 | 9e-65	| 56.60% | 91% | Q09510.1 |
+| g5927.t1 | 1e-18 | 38.64% | 14% | Q17427.1 |
+| g7861.t1 | 2e-71 | 37.21% | 99% | B4F769.1 |
+| g8100.t1 | 3e-46 | 36.04% | 22% | Q2YDR3.1 |
+| g8312.t1 | 0.0 | 40.84% | 84% | Q5KU39.1 |
+| g11513.t1 | 7e-83 | 28.61% | 68% | Q32PH0.1 |
+| g11960.t1 | 6e-98 | 26.96% | 96% | Q8CJB9.1 |
+| g14472.t1 | 0.0 | 100.00% | 100% | P0DOW4.1 |
+| g15484.t1 | 0.0 | 45.03% | 78% | Q155U0.1 |
+| g16318.t1 | 4e-08 | 36.11% | 40% | A2VD00.1 |
+| g16368.t1 | 1e-05 | 39.29% | 35% | A4II09.1 |
 
