@@ -40,7 +40,7 @@ for l in allProt:
 2. Выбираем все белки, которые потенциально могут быть ядерными — [proteins.txt](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10237163/proteins.txt).
 
 ## Blast поиск
-1. Выполняем Blast поиск по всем белкам, которые были найдены на прошлом шаге. В слудующей таблице представлены те белки, которые нашел Blast.
+1. Выполняем Blast поиск по всем белкам, которые были найдены на прошлом шаге. В следующей таблице представлены те белки, которые нашел Blast.
 
 | Accession Number | E-value | % Ident | % Query coverage | Annotation |
 | :---: | :---: | :---: | :---: | :---: |
@@ -56,4 +56,8 @@ for l in allProt:
 | g15484.t1 | 0.0 | 45.03% | 78% | Q155U0.1 |
 | g16318.t1 | 4e-08 | 36.11% | 40% | A2VD00.1 |
 | g16368.t1 | 1e-05 | 39.29% | 35% | A4II09.1 |
+
+## HHMMER поиск
+1. Выполняем HHMMER поиск по всем белкам, которые были найдены на предыдущем шаге - [score results _ HMMER.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10238527/score.results._.HMMER.pdf).
+
 
