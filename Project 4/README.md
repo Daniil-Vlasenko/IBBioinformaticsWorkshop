@@ -12,7 +12,31 @@
 1. Скачиваем результаты масс-спектрометрии хроматина тихоходки https://disk.yandex.ru/d/xJqQMGX77Xueqg.
 2. Создаем базу данных пептидов с помощью **blast** `makeblastdb -in augustus.whole.fna -dbtype prot  -out blast_database`.
 3. Выравниванием данный масс-спектра на базу данных `blastp -db blast_database -query ../rowData/peptides.fa -outfmt 6  -out blast_output`.
+4. Извлечем из файла, содержащего все белки, белки, которые были найдены с помощью выравнивания пептидов:
+```
+allProt = open("../processedData/augustus.whole.fna", "r")
+interestProt = open("../processedData/blast_output.txt", "r")
+outputFile = open("../processedData/proteins_after_localization.fna", "w")
+
+interestProtList = []
+for l in interestProt:
+    interestProtList.append(l.split()[1])
+
+isInterestProtein = False
+count = 0
+for l in allProt:
+    if l[0] == ">":
+        if l[1:-1] in interestProtList:
+            isInterestProtein = True
+            count += 1
+        else:
+            isInterestProtein = False
+    if isInterestProtein:
+        outputFile.write(l)
+```
 
 ## Предположение локализации белков
 
-1. Используем **WoLF PSORT** для локализации белков, полученных на прошлом шаге — [WoLF PSORT Prediction.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10236580/WoLF.PSORT.Prediction.pdf)
+1. Используем **WoLF PSORT** для локализации белков, полученных на прошлом шаге — [WoLF PSORT Prediction.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10236580/WoLF.PSORT.Prediction.pdf).
+2. Выбираем все белки, которые потенциально могут быть ядерными — [proteins.txt](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10237163/proteins.txt).
+
