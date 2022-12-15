@@ -40,7 +40,7 @@ for l in allProt:
 2. Выбираем все белки, которые потенциально могут быть ядерными — [proteins.txt](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10237163/proteins.txt).
 
 ## Blast поиск
-1. Выполняем Blast поиск по всем белкам, которые были найдены на прошлом шаге.
+1. Выполняем Blast поиск по всем белкам, которые были найдены на прошлом шаге. В слудующей таблице представлены те белки, которые нашел Blast.
 
 | Accession Number | E-value | % Ident | % Query coverage | Annotation |
 | :---: | :---: | :---: | :---: | :---: |
