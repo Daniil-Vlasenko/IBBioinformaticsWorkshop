@@ -14,5 +14,5 @@
 2. Цвет глаз. В соответствии с этой статьей https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3694299/ будет не голубой так как rs12913832 = AG, по остальным SNP's нет точной информации, поэтому предполагаем, что цвет глаз будет между зеленым и коричневым.
 
 ## Аннотирование всех SNP, выбор клинически значимых.
-1. Для анотирования используем Variant Effect Predictor.
-2. 
+1. Для анотирования используем *Variant Effect Predictor*. [vep_filter.txt](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10757618/vep_filter.txt)
+
