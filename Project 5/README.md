@@ -7,7 +7,7 @@
 
 ## Определение родительских гаплогрупп.
 1. С помощью **James Lick's mtHap utility** анализируем мтДНК и определяем материнскую гаплогруппу. [SNP_raw_v4_Full_20170514175358—mtDNA Haplogroup Analysis Report.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10757570/SNP_raw_v4_Full_20170514175358.mtDNA.Haplogroup.Analysis.Report.pdf)
-2. С помощью **MorleyDNA.com Y-SNP Subclade Predictor** анализирум Y-хромосому и определяем отцовскую гаплогруппу. file:///home/daniil/Documents/Study/IB/IBBW/Project5/processedData/MorleyDNA.com_output/MorleyDNA.com%20Y-SNP%20Subclade%20Predictor.pdf
+2. С помощью **MorleyDNA.com Y-SNP Subclade Predictor** анализирум Y-хромосому и определяем отцовскую гаплогруппу. [MorleyDNA.com Y-SNP Subclade Predictor.pdf](https://github.com/Daniil-Vlasenko/IBBioinformaticsWorkshop/files/10757583/MorleyDNA.com.Y-SNP.Subclade.Predictor.pdf)
 
 ## Определение пола и цвета глаз.
 1. Пол, очевидно, мужской, так как в данных есть Y-хромосома.
